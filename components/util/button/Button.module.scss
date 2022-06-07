@@ -1,0 +1,24 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.button {
+  width: 100%;
+  max-width: 350px;
+  padding: 0.5rem 0.8rem;
+  outline: none;
+  border: 2px solid transparent;
+  background-color: $purple;
+  color: $white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover, &:focus {
+    @include shadow-sm;
+    border: 2px solid $black;
+  }
+}
+
+.button + .button {
+  margin-left: 1rem;
+}

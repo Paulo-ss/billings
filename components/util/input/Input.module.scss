@@ -1,0 +1,35 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .label {
+    margin-bottom: 0.3rem;
+  }
+
+ .input {
+   border: 1px solid $black;
+   border-radius: 3px;
+   max-width: 350px;
+   padding: 0.8rem;
+   margin-bottom: 1rem;
+   outline: none;
+   transition: all 0.3s ease-in-out;
+
+   @include responsive(sm) {
+    max-width: 100%;
+   }
+
+   &:hover, &:focus {
+     border: 1px solid $purple;
+     @include shadow-sm;
+   }
+
+   &[type="file"] {
+     cursor: pointer;
+   }
+ }
+}

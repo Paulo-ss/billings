@@ -1,0 +1,57 @@
+// Mixin para as sombras do site
+@mixin shadow-sm {
+  box-shadow: 0px 5px 15px 3px rgba(0, 0, 0, 0.1);
+}
+
+@mixin shadow-md {
+  box-shadow: 0px 12px 20px 7px rgba(0, 0, 0, 0.1);
+}
+
+@mixin shadow-lg {
+  box-shadow: 0px 15px 30px 10px rgba(0, 0, 0, 0.15);
+}
+
+// Mixin para os breakpoints responsive do site
+@mixin responsive($device) {
+  // Telas abaixo de 420px
+  @if $device == xs {
+    @media only screen and (max-width: 420px) {
+      @content;
+    }
+  }
+
+  // Telas abaixo de 640px
+  @if $device == sm {
+    @media only screen and (max-width: 640px) {
+      @content;
+    }
+  }
+
+  // Telas abaixo de 768px
+  @if $device == md {
+    @media only screen and (max-width: 768px) {
+      @content;
+    }
+  }
+
+  // Telas abaixo de 1190px
+  @if $device == lg {
+    @media only screen and (max-width: 1190px) {
+      @content;
+    }
+  }
+
+  // Telas abaixo de 1360px
+  @if $device == xl {
+    @media only screen and (max-width: 1360px) {
+      @content;
+    }
+  }
+
+  // Telas abaixo de 1536px
+  @if $device == xxl {
+    @media only screen and (max-width: 1536px) {
+      @content;
+    }
+  }
+}

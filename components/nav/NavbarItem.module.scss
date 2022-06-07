@@ -1,0 +1,21 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.navbarItem {
+  a {
+    padding: 1rem;
+    transition: color 0.3s ease;
+
+    @include responsive(sm) {
+      padding: 0.8rem;
+    }
+
+    @include responsive(xs) {
+      padding: 0.5rem;
+    }
+
+    &:hover, &.active {
+      color: $purple;
+    }
+  }
+}

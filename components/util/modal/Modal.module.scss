@@ -1,0 +1,19 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: clamp(30%, 350px, 90%);
+  max-width: 400px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 5px;
+  @include shadow-md;
+
+  &.padding {
+    padding: 1.5rem;
+  }
+}

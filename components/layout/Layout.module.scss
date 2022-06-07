@@ -1,0 +1,16 @@
+@import "../../styles/mixins";
+
+.layout {
+  padding: 0 2rem;
+
+  @include responsive(sm) {
+    padding: 0 0.8rem;
+  }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

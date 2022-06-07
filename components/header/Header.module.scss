@@ -1,0 +1,19 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0.8rem;
+
+  @include responsive(sm) {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: $purple;
+  }
+}

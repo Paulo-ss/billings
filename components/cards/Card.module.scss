@@ -1,0 +1,86 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid transparent;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 5px;
+  @include shadow-sm;
+  transition: all 0.3s ease;
+
+  @include responsive(sm) {
+    padding: 0.8rem;
+  }
+
+  &.editMode {
+    border-color: $blue;
+    @include shadow-md;
+  }
+
+  .info {
+    display: flex;
+
+    span {
+      margin-right: 1.5rem;
+
+      @include responsive(sm) {
+        margin-right: 1rem;
+      }
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+
+      @include responsive(sm) {
+        font-size: 1.2rem;
+      }
+    }
+
+    p {
+      line-height: 1.5rem;
+    }
+  }
+
+  .actions {
+    display: flex;
+
+    button + button {
+      margin-left: 0.5rem;
+
+      @include responsive(sm) {
+        margin-left: 0.3rem;
+      }
+    }
+  }
+}
+
+.card + .card {
+  margin-top: 1.5rem;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .buttons {
+    width: 100%;
+    display: flex;
+    margin-top: 1rem;
+    justify-content: space-evenly;
+
+    button {
+      span {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}

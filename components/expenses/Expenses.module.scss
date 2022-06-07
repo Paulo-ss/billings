@@ -1,0 +1,47 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.expenses {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 0.8rem;
+
+  .expensesHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+
+    .title {
+      text-align: center;
+      font-weight: 400;
+    }
+  }
+
+  .totalExpenses {
+    margin-top: 1rem;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .noExpenses {
+    text-align: center;
+    font-weight: 700;
+    margin-top: 1rem;
+  }
+}
+
+.modalContent {
+  width: 100%;
+
+  .modalTitle {
+    color: $purple;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+}
