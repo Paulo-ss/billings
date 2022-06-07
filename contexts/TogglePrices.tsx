@@ -12,11 +12,14 @@ interface Props {
 export const TogglePrices = createContext({} as TogglePricesObject);
 
 const TogglePricesProvider: FC<Props> = ({ children }) => {
-  const [showPrices, setShowPrices] = useState(false);
+  const [showPrices, setShowPrices] = useState(true);
 
   useEffect(() => {
-    const hidePrices = JSON.parse(window.localStorage.getItem("hidePrices")!);
-    setShowPrices(hidePrices);
+    const hidePrices = window.localStorage.getItem("hidePrices");
+
+    if (hidePrices) {
+      setShowPrices(JSON.parse(hidePrices));
+    }
   }, []);
 
   const toggleShowPrices = () => {
