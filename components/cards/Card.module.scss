@@ -44,6 +44,10 @@
 
     p {
       line-height: 1.5rem;
+
+      @include responsive(sm) {
+        font-size: 0.8rem;
+      }
     }
   }
 
