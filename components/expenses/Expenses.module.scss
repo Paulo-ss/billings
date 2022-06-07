@@ -18,6 +18,19 @@
     .title {
       text-align: center;
       font-weight: 400;
+
+      @include responsive(sm) {
+        font-size: 1.2rem;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+
+      button + button {
+        margin-left: 0.8rem;
+      }
     }
   }
 

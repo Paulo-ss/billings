@@ -1,5 +1,5 @@
 import styles from "./Card.module.scss";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import {
   CardObject,
   FetchOptions,
@@ -11,6 +11,8 @@ import CardsForm from "../forms/CardsForm/CardsForm";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../util/modal/Modal";
 import formatCardNumber from "../../util/formatCardNumber";
+import { TogglePrices } from "../../contexts/TogglePrices";
+import HidePrice from "../util/hidePrice/HidePrice";
 
 interface Props {
   fetchData: (url: string, options?: FetchOptions | undefined) => Promise<any>;
@@ -29,6 +31,7 @@ const Expense: FC<CardObject & Props> = ({
 }) => {
   const [isEditModeOn, setIsEditModeOn] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const { showPrices } = useContext(TogglePrices);
 
   const toggleEditMode = () => {
     setIsEditModeOn((state) => !state);
@@ -94,7 +97,7 @@ const Expense: FC<CardObject & Props> = ({
             <>
               <p className={styles.name}>{name}</p>
               <p>{formatCardNumber(id)}</p>
-              <p>Limite: {formatPrice(limit)}</p>
+              <p>Limite: {showPrices ? formatPrice(limit) : <HidePrice />}</p>
               <p>Dia do vencimento: {expirationDay}</p>
             </>
           )}

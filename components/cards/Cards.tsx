@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
+import { TogglePrices } from "../../contexts/TogglePrices";
 import useFetch from "../../hooks/useFetch";
 import { CardObject, NotificationProps } from "../../interfaces/Interfaces";
 import CardsForm from "../forms/CardsForm/CardsForm";
@@ -20,6 +21,7 @@ const Cards: FC<Props> = ({ cardsArray }) => {
   const [showNotification, setShowNotification] =
     useState<NotificationProps | null>(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const { showPrices, toggleShowPrices } = useContext(TogglePrices);
 
   const openModal = () => {
     setIsModalOpened(true);
@@ -47,11 +49,27 @@ const Cards: FC<Props> = ({ cardsArray }) => {
         <div className={styles.cardsHeader}>
           <h1 className={styles.title}>Seus cartões</h1>
 
-          <IconButton
-            color="success"
-            iconCode="add_circle"
-            onClick={openModal}
-          />
+          <div className={styles.buttons}>
+            {showPrices ? (
+              <IconButton
+                color="purple"
+                iconCode="visibility"
+                onClick={toggleShowPrices}
+              />
+            ) : (
+              <IconButton
+                color="purple"
+                iconCode="visibility_off"
+                onClick={toggleShowPrices}
+              />
+            )}
+
+            <IconButton
+              color="success"
+              iconCode="add_circle"
+              onClick={openModal}
+            />
+          </div>
         </div>
 
         {cards && cards.length ? (
@@ -94,12 +112,14 @@ const Cards: FC<Props> = ({ cardsArray }) => {
         )}
       </AnimatePresence>
 
-      {showNotification && (
-        <Notification
-          {...showNotification}
-          closeNotification={closeNotification}
-        />
-      )}
+      <AnimatePresence>
+        {showNotification && (
+          <Notification
+            {...showNotification}
+            closeNotification={closeNotification}
+          />
+        )}
+      </AnimatePresence>
 
       {loading && <Loading />}
     </>

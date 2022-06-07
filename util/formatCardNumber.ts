@@ -4,9 +4,9 @@ const formatCardNumber = (cardNumber: string) => {
   let formattedNumber = "";
 
   numbers.forEach((number, index) => {
-    if ((index + 1) % 4 === 0) {
-      formattedNumber += number;
+    if (index % 4 === 0) {
       formattedNumber += " ";
+      formattedNumber += number;
       return;
     }
 

@@ -51,12 +51,22 @@ const ExpensesForm: FC<Props> = ({
 
     const card = cards.find(({ id }) => id === cardId);
 
-    if (card) {
+    if (card && fetchOptions.method === "POST") {
       openNotification({
         color: "danger",
         message: "Esse número de cartão já está cadastrado!",
       });
       return;
+    }
+
+    if (card && fetchOptions.method === "PATCH") {
+      if (!(card.name === nameInitial)) {
+        openNotification({
+          color: "danger",
+          message: "Esse número de cartão já está cadastrado!",
+        });
+        return;
+      }
     }
 
     await fetchData(fetchOptions.url, {

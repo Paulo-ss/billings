@@ -1,9 +1,11 @@
 import { AnimatePresence } from "framer-motion";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
+import { TogglePrices } from "../../contexts/TogglePrices";
 import useFetch from "../../hooks/useFetch";
 import { ExpenseObject, NotificationProps } from "../../interfaces/Interfaces";
 import formatPrice from "../../util/formatPrice";
 import ExpensesForm from "../forms/ExpensesForm/ExpensesForm";
+import HidePrice from "../util/hidePrice/HidePrice";
 import IconButton from "../util/iconButton/IconButton";
 import Loading from "../util/loading/Loading";
 import Modal from "../util/modal/Modal";
@@ -23,6 +25,7 @@ const Expenses: FC<Props> = ({ expensesArray }) => {
   const [showNotification, setShowNotification] =
     useState<NotificationProps | null>(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const { showPrices, toggleShowPrices } = useContext(TogglePrices);
 
   const openModal = () => {
     setIsModalOpened(true);
@@ -50,11 +53,27 @@ const Expenses: FC<Props> = ({ expensesArray }) => {
         <div className={styles.expensesHeader}>
           <h1 className={styles.title}>Suas últimas despesas</h1>
 
-          <IconButton
-            color="success"
-            iconCode="add_circle"
-            onClick={openModal}
-          />
+          <div className={styles.buttons}>
+            {showPrices ? (
+              <IconButton
+                color="purple"
+                iconCode="visibility"
+                onClick={toggleShowPrices}
+              />
+            ) : (
+              <IconButton
+                color="purple"
+                iconCode="visibility_off"
+                onClick={toggleShowPrices}
+              />
+            )}
+
+            <IconButton
+              color="success"
+              iconCode="add_circle"
+              onClick={openModal}
+            />
+          </div>
         </div>
 
         {expenses && expenses.length ? (
@@ -76,13 +95,17 @@ const Expenses: FC<Props> = ({ expensesArray }) => {
         {expenses && expenses.length ? (
           <p className={styles.totalExpenses}>
             Total de despesas:{" "}
-            <span>
-              {formatPrice(
-                expenses.reduce((total, expense) => {
-                  return total + expense.installmentValue;
-                }, 0)
-              )}
-            </span>
+            {showPrices ? (
+              <span>
+                {formatPrice(
+                  expenses.reduce((total, expense) => {
+                    return total + expense.installmentValue;
+                  }, 0)
+                )}
+              </span>
+            ) : (
+              <HidePrice />
+            )}
           </p>
         ) : (
           ""
@@ -112,12 +135,14 @@ const Expenses: FC<Props> = ({ expensesArray }) => {
         )}
       </AnimatePresence>
 
-      {showNotification && (
-        <Notification
-          {...showNotification}
-          closeNotification={closeNotification}
-        />
-      )}
+      <AnimatePresence>
+        {showNotification && (
+          <Notification
+            {...showNotification}
+            closeNotification={closeNotification}
+          />
+        )}
+      </AnimatePresence>
 
       {loading && <Loading />}
     </>

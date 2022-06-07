@@ -2,7 +2,7 @@ import styles from "./IconButton.module.scss";
 import { FC } from "react";
 
 interface Props {
-  color: "success" | "info" | "danger";
+  color: "success" | "info" | "danger" | "purple";
   iconCode: string;
   onClick?: () => void;
 }

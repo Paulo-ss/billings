@@ -1,5 +1,5 @@
 import styles from "./Expense.module.scss";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import {
   ExpenseObject,
   FetchOptions,
@@ -11,6 +11,8 @@ import ExpensesForm from "../forms/ExpensesForm/ExpensesForm";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../util/modal/Modal";
 import formatCardNumber from "../../util/formatCardNumber";
+import { TogglePrices } from "../../contexts/TogglePrices";
+import HidePrice from "../util/hidePrice/HidePrice";
 
 interface Props {
   fetchData: (url: string, options?: FetchOptions | undefined) => Promise<any>;
@@ -31,6 +33,7 @@ const Expense: FC<ExpenseObject & Props> = ({
 }) => {
   const [isEditModeOn, setIsEditModeOn] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const { showPrices } = useContext(TogglePrices);
 
   const toggleEditMode = () => {
     setIsEditModeOn((state) => !state);
@@ -95,8 +98,13 @@ const Expense: FC<ExpenseObject & Props> = ({
             />
           ) : (
             <>
-              <p>{formatPrice(installmentValue)}</p>
-              <p>Parcelas: {installmentAmount}x</p>
+              <p>
+                {showPrices ? formatPrice(installmentValue) : <HidePrice />}
+              </p>
+              <p>
+                Parcelas:{" "}
+                {showPrices ? formatPrice(installmentAmount) : <HidePrice />}
+              </p>
               <p className={styles.date}>Data: {startDate}</p>
               <p>Cartão: {formatCardNumber(String(cardId))}</p>
             </>
