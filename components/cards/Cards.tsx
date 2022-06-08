@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { TogglePrices } from "../../contexts/TogglePrices";
 import useFetch from "../../hooks/useFetch";
 import { CardObject, NotificationProps } from "../../interfaces/Interfaces";
@@ -12,20 +12,16 @@ import Card from "./Card";
 import styles from "./Cards.module.scss";
 
 interface Props {
-  cardsArray: CardObject[];
+  cardsServer: CardObject[];
 }
 
-const Cards: FC<Props> = ({ cardsArray }) => {
-  const [cards, setCards] = useState<CardObject[] | null>(null);
+const Cards: FC<Props> = ({ cardsServer }) => {
+  const [cards, setCards] = useState<CardObject[] | null>(cardsServer);
   const { loading, fetchData } = useFetch();
   const [showNotification, setShowNotification] =
     useState<NotificationProps | null>(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const { showPrices, toggleShowPrices } = useContext(TogglePrices);
-
-  useEffect(() => {
-    setCards(cardsArray);
-  }, [cardsArray]);
 
   const openModal = () => {
     setIsModalOpened(true);

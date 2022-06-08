@@ -14,20 +14,18 @@ import Expense from "./Expense";
 import styles from "./Expenses.module.scss";
 
 interface Props {
-  expensesArray: ExpenseObject[];
+  expensesServer: ExpenseObject[];
 }
 
-const Expenses: FC<Props> = ({ expensesArray }) => {
-  const [expenses, setExpenses] = useState<ExpenseObject[] | null>(null);
+const Expenses: FC<Props> = ({ expensesServer }) => {
+  const [expenses, setExpenses] = useState<ExpenseObject[] | null>(
+    expensesServer
+  );
   const { loading, fetchData } = useFetch();
   const [showNotification, setShowNotification] =
     useState<NotificationProps | null>(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const { showPrices, toggleShowPrices } = useContext(TogglePrices);
-
-  useEffect(() => {
-    setExpenses(expensesArray);
-  }, [expensesArray]);
 
   const openModal = () => {
     setIsModalOpened(true);

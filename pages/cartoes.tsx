@@ -14,12 +14,12 @@ const Cartoes: NextPage<{ cards: CardObject[] }> = ({ cards }) => {
         />
       </Head>
 
-      <Cards cardsArray={cards} />
+      <Cards cardsServer={cards} />
     </>
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch("https://meus-gastos-server.herokuapp.com/card");
   const data = (await res.json()) as CardObject[];
   const cards = data.reverse();

@@ -14,12 +14,12 @@ const Home: NextPage<{ expenses: ExpenseObject[] }> = ({ expenses }) => {
         />
       </Head>
 
-      <Expenses expensesArray={expenses} />
+      <Expenses expensesServer={expenses} />
     </>
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch("https://meus-gastos-server.herokuapp.com/expenses");
   const data = (await res.json()) as ExpenseObject[];
   const expenses = data.reverse();
