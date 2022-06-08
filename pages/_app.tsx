@@ -1,16 +1,16 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import Layout from "../components/layout/Layout";
-import TogglePricesProvider from "../contexts/TogglePrices";
+import PricesVisibilityProvider from "../contexts/PricesVisibility";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <TogglePricesProvider>
+      <PricesVisibilityProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </TogglePricesProvider>
+      </PricesVisibilityProvider>
     </>
   );
 }

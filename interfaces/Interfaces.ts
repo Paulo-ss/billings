@@ -9,7 +9,7 @@ export interface ExpenseObject {
   startDate: string;
   installmentValue: number;
   installmentAmount: number;
-  cardId: number;
+  cardId: number | null;
 }
 
 export interface CardObject {

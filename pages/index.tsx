@@ -3,7 +3,11 @@ import Head from "next/head";
 import Expenses from "../components/expenses/Expenses";
 import { ExpenseObject } from "../interfaces/Interfaces";
 
-const Home: NextPage<{ expenses: ExpenseObject[] }> = ({ expenses }) => {
+interface Props {
+  expenses: ExpenseObject[];
+}
+
+const Home: NextPage<Props> = ({ expenses }) => {
   return (
     <>
       <Head>

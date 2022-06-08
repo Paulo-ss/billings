@@ -41,6 +41,11 @@
       @include responsive(sm) {
         font-size: 0.8rem;
       }
+
+      &.cardDeleted {
+        color: $red;
+        font-weight: 700;
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 import styles from "./Expense.module.scss";
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import {
   ExpenseObject,
   FetchOptions,
@@ -11,7 +11,7 @@ import ExpensesForm from "../forms/ExpensesForm/ExpensesForm";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../util/modal/Modal";
 import formatCardNumber from "../../util/formatCardNumber";
-import { TogglePrices } from "../../contexts/TogglePrices";
+import { PricesVisibility } from "../../contexts/PricesVisibility";
 import HidePrice from "../util/hidePrice/HidePrice";
 
 interface Props {
@@ -33,7 +33,7 @@ const Expense: FC<ExpenseObject & Props> = ({
 }) => {
   const [isEditModeOn, setIsEditModeOn] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const { showPrices } = useContext(TogglePrices);
+  const { showPrices } = useContext(PricesVisibility);
 
   const toggleEditMode = () => {
     setIsEditModeOn((state) => !state);
@@ -105,7 +105,11 @@ const Expense: FC<ExpenseObject & Props> = ({
                 Parcelas: {showPrices ? `${installmentAmount}x` : <HidePrice />}
               </p>
               <p className={styles.date}>Data: {startDate}</p>
-              <p>Cartão: {formatCardNumber(String(cardId))}</p>
+              <p className={`${!cardId && styles.cardDeleted}`}>
+                {!cardId
+                  ? "Cartão deletado"
+                  : `Cartão: ${formatCardNumber(String(cardId))}`}
+              </p>
             </>
           )}
         </div>
@@ -120,7 +124,13 @@ const Expense: FC<ExpenseObject & Props> = ({
           />
         ) : (
           <>
-            <IconButton color="info" iconCode="edit" onClick={toggleEditMode} />
+            {cardId && (
+              <IconButton
+                color="info"
+                iconCode="edit"
+                onClick={toggleEditMode}
+              />
+            )}
             <IconButton
               color="danger"
               iconCode="delete_forever"

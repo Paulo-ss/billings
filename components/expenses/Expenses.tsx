@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
-import { FC, useContext, useEffect, useState } from "react";
-import { TogglePrices } from "../../contexts/TogglePrices";
+import { FC, useContext, useState } from "react";
+import { PricesVisibility } from "../../contexts/PricesVisibility";
 import useFetch from "../../hooks/useFetch";
 import { ExpenseObject, NotificationProps } from "../../interfaces/Interfaces";
 import formatPrice from "../../util/formatPrice";
@@ -25,7 +25,7 @@ const Expenses: FC<Props> = ({ expensesServer }) => {
   const [showNotification, setShowNotification] =
     useState<NotificationProps | null>(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const { showPrices, toggleShowPrices } = useContext(TogglePrices);
+  const { showPrices, toggleShowPrices } = useContext(PricesVisibility);
 
   const openModal = () => {
     setIsModalOpened(true);

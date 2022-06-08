@@ -30,7 +30,7 @@ const ExpensesForm: FC<Props> = ({
 }) => {
   const [name, setName] = useState(nameInitial ? nameInitial : "");
   const [installmentValue, setInstallmentValue] = useState(
-    installmentValueInitial ? installmentValueInitial : ""
+    installmentValueInitial ? installmentValueInitial.replace(".", ",") : ""
   );
   const [installmentAmount, setInstallmentAmount] = useState(1);
   const [cardId, setCardId] = useState(cardIdInitial ? cardIdInitial : "");
@@ -43,10 +43,12 @@ const ExpensesForm: FC<Props> = ({
       date.getMonth() + 1
     }/${date.getFullYear()}`;
 
+    const installmentValueFormatted = installmentValue.replace(",", ".");
+
     const body = {
       name,
       startDate,
-      installmentValue: parseFloat(installmentValue),
+      installmentValue: parseFloat(installmentValueFormatted),
       installmentAmount,
       cardId: cardId,
     };
@@ -91,7 +93,7 @@ const ExpensesForm: FC<Props> = ({
   const numberInputChange = async (e: FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
-    const regexp = new RegExp(/^[0-9\.]*$/g);
+    const regexp = new RegExp(/^[0-9\,]*$/g);
 
     if (!regexp.test(value)) {
       e.preventDefault();

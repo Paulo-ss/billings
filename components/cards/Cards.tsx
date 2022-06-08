@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { FC, useContext, useState } from "react";
-import { TogglePrices } from "../../contexts/TogglePrices";
+import { PricesVisibility } from "../../contexts/PricesVisibility";
 import useFetch from "../../hooks/useFetch";
 import { CardObject, NotificationProps } from "../../interfaces/Interfaces";
 import CardsForm from "../forms/CardsForm/CardsForm";
@@ -21,7 +21,7 @@ const Cards: FC<Props> = ({ cardsServer }) => {
   const [showNotification, setShowNotification] =
     useState<NotificationProps | null>(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const { showPrices, toggleShowPrices } = useContext(TogglePrices);
+  const { showPrices, toggleShowPrices } = useContext(PricesVisibility);
 
   const openModal = () => {
     setIsModalOpened(true);

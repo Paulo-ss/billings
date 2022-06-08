@@ -11,7 +11,7 @@ import CardsForm from "../forms/CardsForm/CardsForm";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../util/modal/Modal";
 import formatCardNumber from "../../util/formatCardNumber";
-import { TogglePrices } from "../../contexts/TogglePrices";
+import { PricesVisibility } from "../../contexts/PricesVisibility";
 import HidePrice from "../util/hidePrice/HidePrice";
 
 interface Props {
@@ -31,7 +31,7 @@ const Expense: FC<CardObject & Props> = ({
 }) => {
   const [isEditModeOn, setIsEditModeOn] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const { showPrices } = useContext(TogglePrices);
+  const { showPrices } = useContext(PricesVisibility);
 
   const toggleEditMode = () => {
     setIsEditModeOn((state) => !state);
@@ -128,8 +128,11 @@ const Expense: FC<CardObject & Props> = ({
           <Modal closeModal={closeModal} padding>
             <div className={styles.modalContent}>
               <h3 className={styles.modalTitle}>
-                Deseja realmente excluir esse cartão?
+                Deseja realmente <br /> excluir o cartão <br />{" "}
+                {formatCardNumber(id)}?
               </h3>
+
+              <p>Você não poderá alterar mais as despesas relacionadas a ele</p>
 
               <div className={styles.buttons}>
                 <IconButton

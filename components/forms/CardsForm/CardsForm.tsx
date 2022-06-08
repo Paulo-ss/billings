@@ -30,7 +30,9 @@ const ExpensesForm: FC<Props> = ({
 }) => {
   const [cardId, setCardId] = useState(cardIdInitial ? cardIdInitial : "");
   const [name, setName] = useState(nameInitial ? nameInitial : "");
-  const [limit, setLimit] = useState(limitInitial ? limitInitial : "");
+  const [limit, setLimit] = useState(
+    limitInitial ? limitInitial.replace(".", ",") : ""
+  );
   const [expirationDay, setExpirationDay] = useState(
     expirationDayInitial ? expirationDayInitial : ""
   );
@@ -38,10 +40,12 @@ const ExpensesForm: FC<Props> = ({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    const limitFormatted = limit.replace(",", ".");
+
     const body = {
       id: cardId,
       name,
-      limit: Number(limit),
+      limit: parseFloat(limit),
       expirationDay: Number(expirationDay),
     };
 
@@ -95,7 +99,7 @@ const ExpensesForm: FC<Props> = ({
   const numberInputChange = async (e: FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
-    const regexp = new RegExp(/^[0-9\.]*$/g);
+    const regexp = new RegExp(/^[0-9\,]*$/g);
 
     if (!regexp.test(value)) {
       e.preventDefault();
