@@ -49,5 +49,9 @@
     color: $purple;
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
+
+    @include responsive(sm) {
+      font-size: 1.5rem;
+    }
   }
 }
