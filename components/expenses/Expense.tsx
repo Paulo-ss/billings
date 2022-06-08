@@ -102,8 +102,7 @@ const Expense: FC<ExpenseObject & Props> = ({
                 {showPrices ? formatPrice(installmentValue) : <HidePrice />}
               </p>
               <p>
-                Parcelas:{" "}
-                {showPrices ? formatPrice(installmentAmount) : <HidePrice />}
+                Parcelas: {showPrices ? `${installmentAmount}x` : <HidePrice />}
               </p>
               <p className={styles.date}>Data: {startDate}</p>
               <p>Cartão: {formatCardNumber(String(cardId))}</p>
