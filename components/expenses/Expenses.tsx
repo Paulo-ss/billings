@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { TogglePrices } from "../../contexts/TogglePrices";
 import useFetch from "../../hooks/useFetch";
 import { ExpenseObject, NotificationProps } from "../../interfaces/Interfaces";
@@ -18,14 +18,16 @@ interface Props {
 }
 
 const Expenses: FC<Props> = ({ expensesArray }) => {
-  const [expenses, setExpenses] = useState<ExpenseObject[] | null>(
-    expensesArray
-  );
+  const [expenses, setExpenses] = useState<ExpenseObject[] | null>(null);
   const { loading, fetchData } = useFetch();
   const [showNotification, setShowNotification] =
     useState<NotificationProps | null>(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const { showPrices, toggleShowPrices } = useContext(TogglePrices);
+
+  useEffect(() => {
+    setExpenses(expensesArray);
+  }, [expensesArray]);
 
   const openModal = () => {
     setIsModalOpened(true);
